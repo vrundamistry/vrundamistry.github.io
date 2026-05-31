@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Vrunda Mistry — WordPress Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #f7f5f0;
+  --surface: #ffffff;
+  --accent: #2563eb;
+  --accent-light: #eff6ff;
+  --text: #1a1a1a;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+  --radius: 12px;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.6; }
+
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(247,245,240,0.92); backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 54px;
+}
+.nav-logo { font-family: 'DM Serif Display', serif; font-size: 1.1rem; color: var(--text); text-decoration: none; }
+.nav-links { display: flex; gap: 1.8rem; list-style: none; }
+.nav-links a { text-decoration: none; font-size: 13px; font-weight: 500; color: var(--muted); transition: color .2s; }
+.nav-links a:hover { color: var(--text); }
+
+.hero {
+  max-width: 840px; margin: 0 auto; padding: 56px 2rem 44px;
+  display: grid; grid-template-columns: 1fr auto; gap: 2.5rem; align-items: center;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--accent-light); color: var(--accent);
+  font-size: 12px; font-weight: 600; padding: 3px 11px; border-radius: 999px; margin-bottom: .8rem;
+}
+.hero-badge span { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+.hero h1 { font-family: 'DM Serif Display', serif; font-size: clamp(2.2rem, 5vw, 3.2rem); line-height: 1.1; margin-bottom: .7rem; letter-spacing: -0.01em; }
+.hero p { font-size: 1rem; color: var(--muted); max-width: 460px; margin-bottom: 1.5rem; }
+.hero-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 9px 20px; border-radius: 8px; font-size: 13px; font-weight: 600;
+  text-decoration: none; transition: all .18s; cursor: pointer; border: none;
+}
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-primary:hover { background: #1d4ed8; transform: translateY(-1px); }
+.btn-outline { background: transparent; color: var(--text); border: 1.5px solid var(--border); }
+.btn-outline:hover { border-color: #9ca3af; background: var(--surface); }
+.avatar {
+  width: 110px; height: 110px; border-radius: 50%;
+  background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'DM Serif Display', serif; font-size: 2.6rem; color: #fff; flex-shrink: 0;
+  box-shadow: 0 6px 24px rgba(37,99,235,0.18);
+}
+
+section { max-width: 840px; margin: 0 auto; padding: 40px 2rem; }
+.section-label { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: .3rem; }
+.section-title { font-family: 'DM Serif Display', serif; font-size: 1.7rem; margin-bottom: 1.4rem; letter-spacing: -0.01em; }
+
+.skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 10px; }
+.skill-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; }
+.skill-card h4 { font-size: 11px; font-weight: 600; color: var(--muted); letter-spacing: .05em; text-transform: uppercase; margin-bottom: 8px; }
+.tags { display: flex; flex-wrap: wrap; gap: 5px; }
+.tag { font-size: 11.5px; font-weight: 500; padding: 2px 9px; border-radius: 999px; }
+.tg { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
+.tb { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; }
+.tp { background: #f5f3ff; color: #5b21b6; border: 1px solid #ddd6fe; }
+.ta { background: #fffbeb; color: #92400e; border: 1px solid #fde68a; }
+
+.projects-list { display: flex; flex-direction: column; gap: 10px; }
+.project-card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 18px 22px; display: grid; grid-template-columns: 36px 1fr auto; gap: 14px; align-items: start;
+  transition: box-shadow .2s, transform .2s;
+}
+.project-card:hover { box-shadow: 0 3px 16px rgba(0,0,0,.06); transform: translateY(-2px); }
+.project-num { font-family: 'DM Serif Display', serif; font-size: 1.6rem; color: var(--border); line-height: 1; padding-top: 2px; }
+.project-card h3 { font-size: .95rem; font-weight: 600; margin-bottom: 4px; }
+.project-card p { font-size: 13px; color: var(--muted); margin-bottom: 8px; }
+.project-link {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 12.5px; font-weight: 600; color: var(--accent);
+  text-decoration: none; padding: 6px 13px; border: 1.5px solid #bfdbfe;
+  border-radius: 6px; background: var(--accent-light); transition: all .15s; white-space: nowrap; align-self: center;
+}
+.project-link:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+.exp-card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 20px 22px; display: flex; gap: 16px; align-items: flex-start;
+}
+.exp-icon { font-size: 24px; margin-top: 2px; flex-shrink: 0; }
+.exp-card h3 { font-size: .95rem; font-weight: 600; }
+.exp-card .company { font-size: 13px; color: var(--accent); font-weight: 500; }
+.exp-card .period { font-size: 12px; color: var(--muted); margin-bottom: 8px; }
+.exp-card ul { padding-left: 16px; font-size: 13px; color: var(--muted); }
+.exp-card li { margin-bottom: 2px; }
+
+.edu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 10px; }
+.edu-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; border-top: 3px solid var(--accent); }
+.edu-card .year { font-size: 11px; color: var(--accent); font-weight: 700; letter-spacing: .06em; margin-bottom: 3px; }
+.edu-card h4 { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+.edu-card p { font-size: 12.5px; color: var(--muted); }
+
+.contact-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 10px; }
+.contact-item {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 14px 16px; display: flex; align-items: center; gap: 11px;
+  text-decoration: none; color: var(--text); transition: all .18s;
+}
+.contact-item:hover { border-color: #bfdbfe; background: var(--accent-light); }
+.contact-icon { width: 34px; height: 34px; border-radius: 8px; background: var(--accent-light); display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+.contact-item span { font-size: 13px; font-weight: 500; }
+.contact-item small { display: block; font-size: 11.5px; color: var(--muted); }
+
+hr { border: none; border-top: 1px solid var(--border); max-width: 840px; margin: 0 auto; }
+footer { text-align: center; padding: 1.5rem 2rem; font-size: 12.5px; color: var(--muted); }
+
+@media (max-width: 580px) {
+  .hero { grid-template-columns: 1fr; }
+  .avatar { width: 70px; height: 70px; font-size: 1.8rem; order: -1; }
+  .project-card { grid-template-columns: 28px 1fr; }
+  .project-link { grid-column: 1 / -1; }
+  .nav-links { display: none; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#">Vrunda Mistry</a>
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <div>
+    <div class="hero-badge"><span></span> Available for Remote &amp; Freelance Work</div>
+    <h1>Vrunda<br>Mistry</h1>
+    <p>WordPress &amp; PHP Developer with <strong>8+ years</strong> of experience delivering 50+ customized projects — custom themes, WooCommerce, REST APIs, and booking platforms. Open to remote roles and freelance collaborations worldwide.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="mailto:vrundamistry9@gmail.com">✉ Hire Me</a>
+      <a class="btn btn-outline" href="#projects">View Projects</a>
+    </div>
+  </div>
+  <div class="avatar">VM</div>
+</div>
+
+<hr />
+
+<section id="skills">
+  <div class="section-label">What I Work With</div>
+  <h2 class="section-title">Technical Skills</h2>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <h4>CMS &amp; Builders</h4>
+      <div class="tags">
+        <span class="tag tg">WordPress</span><span class="tag tg">WooCommerce</span><span class="tag tg">Elementor</span><span class="tag tg">GenerateBlocks</span><span class="tag tg">ACF</span><span class="tag tg">CPT</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <h4>Backend</h4>
+      <div class="tags">
+        <span class="tag tb">PHP</span><span class="tag tb">REST API</span><span class="tag tb">MySQL</span><span class="tag tb">Plugin Dev</span><span class="tag tb">Theme Dev</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <h4>Frontend</h4>
+      <div class="tags">
+        <span class="tag tp">HTML5</span><span class="tag tp">CSS3</span><span class="tag tp">JavaScript</span><span class="tag tp">jQuery</span><span class="tag tp">AJAX</span><span class="tag tp">Responsive</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <h4>Tools &amp; More</h4>
+      <div class="tags">
+        <span class="tag ta">Git</span><span class="tag ta">API Integration</span><span class="tag ta">Booking Systems</span><span class="tag ta">Debugging</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr />
+
+<section id="projects">
+  <div class="section-label">Selected Work</div>
+  <h2 class="section-title">Projects</h2>
+  <div class="projects-list">
+
+    <div class="project-card">
+      <div class="project-num">01</div>
+      <div>
+        <h3>Ocean City Vacation Homes</h3>
+        <p>Vacation rental platform with Guesty &amp; Hostaway API integration, property filtering, and map-based listings.</p>
+        <div class="tags"><span class="tag tg">WordPress</span><span class="tag tb">REST API</span><span class="tag tb">Guesty API</span><span class="tag ta">Map Integration</span></div>
+      </div>
+      <a class="project-link" href="https://oceancityvacationhomes.com/vacation-rentals-ocmd/" target="_blank" rel="noopener">Visit ↗</a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-num">02</div>
+      <div>
+        <h3>VEPO Clean</h3>
+        <p>Custom booking flow with PHP/jQuery forms, improving UX and the full frontend booking experience.</p>
+        <div class="tags"><span class="tag tg">WordPress</span><span class="tag tb">PHP</span><span class="tag tp">jQuery</span><span class="tag ta">Booking System</span></div>
+      </div>
+      <a class="project-link" href="https://vepoclean.com/" target="_blank" rel="noopener">Visit ↗</a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-num">03</div>
+      <div>
+        <h3>DOMS Art League</h3>
+        <p>Custom participant &amp; moderator role management, shortlist pages, and dynamic backend workflows.</p>
+        <div class="tags"><span class="tag tg">WordPress</span><span class="tag tb">PHP</span><span class="tag tp">Custom Roles</span><span class="tag tp">Page Templates</span></div>
+      </div>
+      <a class="project-link" href="https://domsartleague.com/" target="_blank" rel="noopener">Visit ↗</a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-num">04</div>
+      <div>
+        <h3>ACS Posmay</h3>
+        <p>Machine calendar with custom buffer day logic and GenerateBlocks-based layouts per project specs.</p>
+        <div class="tags"><span class="tag tg">WordPress</span><span class="tag tb">PHP</span><span class="tag tp">GenerateBlocks</span><span class="tag ta">Calendar Logic</span></div>
+      </div>
+      <a class="project-link" href="https://staging.acs.posmay.com/" target="_blank" rel="noopener">Visit ↗</a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-num">05</div>
+      <div>
+        <h3>Boggs Law Firm</h3>
+        <p>WordPress theme customization with layout improvements, performance optimization, and custom functionality.</p>
+        <div class="tags"><span class="tag tg">WordPress</span><span class="tag tb">PHP</span><span class="tag tp">CSS</span><span class="tag ta">Theme Customization</span></div>
+      </div>
+      <a class="project-link" href="https://www.boggslawfirm.com/" target="_blank" rel="noopener">Visit ↗</a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-num">06</div>
+      <div>
+        <h3>GTF Expo</h3>
+        <p>Gujarat's premier Travel &amp; Tourism Expo — event site with registration, sponsors, gallery, and visitor management.</p>
+        <div class="tags"><span class="tag tg">WordPress</span><span class="tag tb">PHP</span><span class="tag tp">Elementor</span><span class="tag ta">Event Site</span></div>
+      </div>
+      <a class="project-link" href="https://gtfexpo.in/" target="_blank" rel="noopener">Visit ↗</a>
+    </div>
+
+  </div>
+
+  <div style="margin-top:14px; background:var(--accent-light); border:1px solid #bfdbfe; border-radius:var(--radius); padding:14px 20px; display:flex; align-items:center; gap:12px;">
+    <span style="font-size:20px;">🌐</span>
+    <p style="font-size:13px; color:#1e40af; margin:0;">These are just a few highlights — I've worked on <strong>many more WordPress projects</strong> across e-commerce, booking systems, law firms, event sites, rental platforms, and more, each with custom theme &amp; plugin customizations tailored to client needs.</p>
+  </div>
+</section>
+
+<hr />
+
+<section id="experience">
+  <div class="section-label">Career</div>
+  <h2 class="section-title">Experience</h2>
+  <div class="exp-card">
+    <div class="exp-icon">💼</div>
+    <div>
+      <h3>WordPress Developer</h3>
+      <div class="company">Varni Infotech</div>
+      <div class="period">October 2016 – Present &nbsp;·&nbsp; Surat, Gujarat</div>
+      <ul>
+        <li>Custom theme &amp; plugin development across multiple industries</li>
+        <li>REST APIs connecting WordPress with Android/iOS apps &amp; third-party services</li>
+        <li>WooCommerce stores with custom payment gateways</li>
+        <li>Vacation rental &amp; booking systems with Guesty/Hostaway APIs</li>
+        <li>SEO-friendly, responsive, performance-optimized websites</li>
+        <li>Collaborated with UI/UX teams; maintained &amp; improved live projects</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<hr />
+
+<section id="education">
+  <div class="section-label">Education</div>
+  <h2 class="section-title">Degree</h2>
+  <div class="edu-card" style="max-width:340px;">
+    <div class="year">2014</div>
+    <h4>B.Sc. (IT)</h4>
+    <p>J.P. Dawer Institute of Information Science &amp; Technology, Surat</p>
+  </div>
+</section>
+
+<hr />
+
+<section id="contact">
+  <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:12px;padding:20px 24px;margin-bottom:20px;display:flex;align-items:flex-start;gap:14px;">
+    <div style="font-size:22px;flex-shrink:0;margin-top:2px;">🌍</div>
+    <div>
+      <div style="font-weight:600;font-size:.95rem;color:#1e40af;margin-bottom:4px;">Open to Remote &amp; Freelance Work</div>
+      <div style="font-size:13px;color:#3b82f6;line-height:1.6;">I have worked on and customized many WordPress projects over 8+ years — from booking systems and WooCommerce stores to API integrations and custom themes. I'm looking for <strong>remote full-time</strong> or <strong>freelance work</strong>. Feel free to reach out!</div>
+    </div>
+  </div>
+  <div class="section-label">Get In Touch</div>
+  <h2 class="section-title">Contact</h2>
+  <div class="contact-grid">
+    <a class="contact-item" href="mailto:vrundamistry9@gmail.com">
+      <div class="contact-icon">✉</div>
+      <div><span>Email</span><small>vrundamistry9@gmail.com</small></div>
+    </a>
+    <a class="contact-item" href="tel:+918460073739">
+      <div class="contact-icon">📞</div>
+      <div><span>Phone</span><small>+91 84600 73739</small></div>
+    </a>
+    <div class="contact-item">
+      <div class="contact-icon">📍</div>
+      <div><span>Location</span><small>Saket, New Delhi, India</small></div>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 Vrunda Mistry · WordPress &amp; PHP Developer</footer>
+
+</body>
+</html>
